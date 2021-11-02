@@ -1,4 +1,5 @@
 use crate::rutil::fix_new_line::fix_new_line;
+use crate::rutil::fix_backspace::fix_backspace;
 use crate::rutil::print_tty::{print_tty, print_writer};
 use crate::rutil::safe_string::SafeString;
 use std::io::{BufRead, Write};
@@ -22,7 +23,8 @@ mod wasi {
         let mut password = super::SafeString::new();
 
         reader.read_line(&mut password)?;
-        super::fix_new_line(password.into_inner())
+        
+        super::fix_backspace(super::fix_new_line(password.into_inner())?)
     }
 }
 
